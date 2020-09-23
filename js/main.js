@@ -49,28 +49,28 @@ console.log(wordsList(myLongStr, 'rep')); // {"repellendus", "repudiandae", "rep
  */
 
 let myDate = new Date();
+let getLocalDate = (date, isSeconds = false, isISO = false) => {
+  const reg = new RegExp(':\\d{2}$', 'gui');
+  let res;
 
-function getLocalDate(date, isSeconds = false, isISO = false) {
-    const reg = new RegExp(':\\d{2}$', 'gui');
-    let res;
+  if (!isISO) res = isSeconds
+    ? date.toLocaleString()
+    : date.toLocaleString().replace(reg, '');
+  else {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1 < 9 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
+    const day = date.getDate() < 9 ? `0${date.getDate()}` : date.getDate();
+    const hour = date.getHours() < 9 ? `0${date.getHours()}` : date.getHours();
+    const minutes = date.getMinutes() < 9 ? `0${date.getMinutes()}` : date.getMinutes();
+    const seconds = date.getSeconds() < 9 ? `0${date.getSeconds()}` : date.getSeconds();
 
-    if (!isISO) res = isSeconds ? date.toLocaleString() : date.toLocaleString().replace(reg, '');
-    else {
-        const year = date.getFullYear();
-        const month = date.getMonth() + 1 < 9 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
-        const day = date.getDate() < 9 ? `0${date.getDate()}` : date.getDate();
-        const hour = date.getHours() < 9 ? `0${date.getHours()}` : date.getHours();
-        const minutes = date.getMinutes() < 9 ? `0${date.getMinutes()}` : date.getMinutes();
-        const seconds = date.getSeconds() < 9 ? `0${date.getSeconds()}` : date.getSeconds();
-        
-        res = isSeconds
-        ? `${year}-${month}-${day}, ${hour}:${minutes}:${seconds}`
-        : `${year}-${month}-${day}, ${hour}:${minutes}`;
-    }
-    
-    return res;
-}
+    res = isSeconds
+      ? `${year}-${month}-${day}, ${hour}:${minutes}:${seconds}`
+      : `${year}-${month}-${day}, ${hour}:${minutes}`;
+  }
 
+  return res;
+};
 
 console.log(getLocalDate(myDate)); 
 console.log(getLocalDate(myDate, true)); 
