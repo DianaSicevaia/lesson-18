@@ -145,13 +145,11 @@ console.log(getLocalDay('2019-07-27')); // 6
  * которая была days дней назад от указанной даты date.
  * Дата принимается и возвращается в формате YYYY-MM-DD.
  */
-let getDateAgo = (d, days) => {
-    const date = new Date(d);
+let getDateAgo = (date, days) => {
+    let val = new Date(date);
   
-    date.setDate(date.getDate() - days);
-  
-    return date.toISOString().split('T')[0];
-  };
+    return new Date(val.setDate(val.getDate() - days)).toLocaleDateString();
+  }
   
 
 console.log(getDateAgo('2019-01-29', 1)); // 28.01.2019
